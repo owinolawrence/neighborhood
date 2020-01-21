@@ -1,12 +1,13 @@
-# TITTLE :
+# TITTLE : 
+Neighborhood
 
 ## AUTHOR 
 Owino Lawrence Odhiambo
 
-### Getting Started
+## Getting Started
 Fork this repository or clone it to your local machine on ubuntu use the following commands.
 
-git clone 
+git clone [https://github.com/owinolawrence/neighborhood.git]
 
 ## User Story
 As a user of the application you will be able to:
@@ -78,3 +79,9 @@ python3 manage.py tests
 .Bootdstrap 3
 .Django - The web framework used
 .JQUERY
+
+## Acknowledgments
+Moringa School for guidance
+
+## License
+This project is licensed under the MIT License - see the [LICENSE]file for details.
