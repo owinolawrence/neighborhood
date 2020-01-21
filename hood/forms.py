@@ -21,3 +21,25 @@ class PostsForm(forms.ModelForm):
     class Meta:
         model=Posts
         exclude=['user_posted']
+
+class NeighbourhoodForm(forms.ModelForm):
+    class Meta:
+        model=Neighbourhood
+        exclude=['occupants','admin']
+
+class UpdateProfileForm(forms.ModelForm):
+  class Meta:
+    model = Profile
+    fields = ['profile_image','bio']
+
+class UpdateUser(forms.ModelForm):
+  email = forms.EmailField()
+  class Meta:
+    model = User
+    fields = ['username','email']
+
+class BusinessForm(forms.ModelForm):
+  
+  class Meta:
+    model = Business
+    exclude = []
