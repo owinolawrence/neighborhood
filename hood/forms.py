@@ -12,3 +12,12 @@ class RegisterForm(UserCreationForm):
         fields =('username','fullname','email','password1','password2')
 
 
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model=Profile
+        exclude=['user']
+
+class PostsForm(forms.ModelForm):
+    class Meta:
+        model=Posts
+        exclude=['user_posted']
