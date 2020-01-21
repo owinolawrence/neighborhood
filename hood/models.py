@@ -25,3 +25,51 @@ class Neighbourhood(models.Model):
         return cls.objects.filter(id=neighborhood_id)
 
 
+class Posts(models.Model):
+
+    
+    post_content = models.CharField(max_length=100,null=True)
+    user_posted = models.ForeignKey(User, on_delete=models.CASCADE,null=True)
+    email = models.EmailField()
+
+
+class Profile(models.Model):
+
+    profile_image = models.ImageField(upload_to='avatars/',null=True)
+    bio = models.CharField(max_length=100,null=True)
+    name = models.OneToOneField(User,on_delete=models.CASCADE, related_name='profile',null=True)
+    neighbourhood =models.ForeignKey(Neighbourhood,on_delete=models.CASCADE,null=True)
+    email = models.EmailField()
+    age = models.IntegerField(null=True)
+
+class Business(models.Model):
+
+    business_image = models.ImageField(upload_to='avatars/',null=True)
+    about = models.CharField(max_length=100,null=True)
+    name =  models.CharField(max_length=100)
+    neighbourhood =models.ForeignKey(Neighbourhood,on_delete=models.CASCADE,null=True)
+    email = models.EmailField()
+    contacts = models.IntegerField(null=True)
+    
+    def __str__(self):
+        return f'{self.name} Business'
+
+    def create_business(self):
+        self.save()
+
+    def delete_business(self):
+        self.delete()
+
+
+@receiver(post_save,sender=User)
+def default_profile(sender,instance, created, **kwargs):
+    if created:
+        Profile.objects.create(name=instance)
+
+
+@receiver(post_save,sender=User)
+def save_profile(sender,instance, **kwargs):
+    instance.profile.save()
+
+    def __str__(self):
+        return self.name
