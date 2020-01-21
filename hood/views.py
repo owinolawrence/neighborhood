@@ -143,3 +143,17 @@ def leave_neighbourhood(request,hood_id):
 
     return redirect('home')
 
+@login_required
+def add_post(request):
+    post = Posts.objects.all()
+    if request.method == 'POST':
+        form = PostsForm(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            
+            post.user_posted = request.user
+            post.save()
+            return redirect('home')
+    else:
+        form = PostsForm()
+    return render(request, 'post_form.html', {'form': form,'post':post})
