@@ -58,3 +58,23 @@ def update_profile(request):
   }
   return render(request,'main/edit_profile.html',forms)
 
+@login_required
+def add_neighbourhood(request):
+    current_user = request.user
+    post = Posts.objects.all()
+    if request.method =='POST':
+        form = NeighbourhoodForm(request.POST,request.FILES)
+        if form.is_valid():
+            new_neigh = form.save(commit=False)
+            new_neigh.admin = current_user
+            new_neigh.occupants = 0
+            new_neigh.save()
+            return redirect('home')
+        
+    else:
+        form = NeighbourhoodForm()
+
+    return render(request,'main/neighbourhoodform.html',{"form":form,'post':post})
+
+
+
