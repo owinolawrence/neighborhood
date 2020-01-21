@@ -15,3 +15,18 @@ def home(request):
     post = Posts.objects.all()
     return render(request,'main/index.html', {'user':user,"neigh":neigh,'post':post})
 
+def signup(request):
+    if request.method == 'POST':
+        form = RegisterForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            input_password = form.cleaned_data.get('password1')
+            user = authenticate(username=username,password=input_password)
+            login(request, user)
+            messages.success(request, f'Account created for {username}')
+            return redirect('home')
+    else :
+        form = RegisterForm()
+    return render (request, 'registration/registration_form.html', {'form':form})
+
