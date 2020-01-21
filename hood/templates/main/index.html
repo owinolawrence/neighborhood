@@ -1,0 +1,49 @@
+{% extends 'main/base.html'%}
+{% load static %}
+{% block content%}
+{%include 'main/navbar.html'%}
+<div class="container">
+    <div class="row">
+       
+        {% if neigh %}
+        {% for hoods in neigh %} 
+        
+        <div class="col-sm-6 col-md-6 col-lg-4 mt-4">
+            <div class="card allprojects">
+                <div class="myimg">
+                    <img class="card-img-top" src="{{hoods.neighbourhood_image.url}}">
+                    <div class="image-overlay">
+                      {%if profile.neighbourhood == hood %}
+                      <a href="{%url 'leave' hood_id=hoods.id%}" class ="btn btn-md" >Leave Hood</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                      {%elif not  profile.neighbourhood == hood%}
+                        <a href="{%url 'join' hood_id=hoods.id%}" class ="btn btn-md" >Join Now</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                       {%endif%}
+                        <a href="{%url 'details' hood_id=hoods.id%}" class ="btn btn-md" title='Hood Details' ><i class="far fa-arrow-alt-circle-right"></i></a>
+                       
+                    </div>
+                </div>
+
+                <div class="card-block ">
+                    
+                    <div class="meta">
+                        <a href="{%url 'details' hood_id=hoods.id%}" class = 'title'>{{hoods.name}}</a>
+                    </div>
+                    <div class="card-text">
+                        <p id ='date'>Location: {{hoods.location}}</p>
+                        <p id="by">Admin : {{hoods.admin.username}}</p>
+                        <p id="by">occupants: {{hoods.occupants}}</p>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+
+        
+        {% endfor %}  
+        {% endif %}
+        
+        <div class="col-md-2"></div>
+    </div>
+</div>
+
+{% endblock %}

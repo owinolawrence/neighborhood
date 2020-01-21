@@ -1,0 +1,63 @@
+{% extends 'main/base.html'%}
+{% load static %}
+{% block content%}
+{%include 'main/navbar.html'%}
+
+<div class="container-fluid my_profile">
+    <h3 class="text-center mt-2">Welcome {{current_user.username}}</h3>
+    <div class="row">
+        <div class="col-md-3"></div>
+      {% if profile.profile_image %}
+      
+    
+      <div class="col-md-3 profile mt-5" style="background-image:url('{{profile.profile_image.url}}')">
+        
+        <img src="{{profile.profile_image.url}}" width="250px" height="250px" class="circle" alt="">
+        <br>
+        
+      </div>
+      {% else %}
+      {% load static %}
+      <!-- <div class="col-md-3 profile" style="background-image:url('{% static 'profile_photo.jpg'%}  ');overflow:hidden;"> -->
+          
+          <img src="{% static  'profile_photo.jpg'%}" width="300px" class="circle" alt="">
+          <br>
+         
+      </div>
+      {% endif %}
+      <div class="col-md-6 mt-5 my-details">
+      <h2 class="details">Username</h2>
+      <h4>{{current_user.username}}</h4>
+      
+      <br><br>
+   
+    <h2 class="details">Email</h2>
+    <h4>{{current_user.email}}
+      </h4>
+    
+    <h2 class="details">Neighbourhood</h2>
+    
+    
+   
+    <h2 class="details">Bio</h2>
+   {% if profile.bio %} 
+   
+    <p id="user_biom">{{profile.bio}}</p>
+    <br>
+    
+    {%else %}
+    <p id="final_bio"></p>
+    <br>
+    
+    {% endif %}
+    <br>
+  
+    <a class="btn btn-lg btn-outline-primary" href="{% url 'update_profile'%}">Edit Profile</a>
+    
+      </div>
+      
+    </div>
+  </div>
+  
+  
+  {% endblock %}
