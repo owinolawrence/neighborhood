@@ -66,3 +66,15 @@ DATABASE_URL='postgres://databaseowner:password@localhost/databasename'
 
 
 127.0.0.1:8000/admin
+
+
+## Running the tests
+
+python3 manage.py tests
+
+## Technologies Used
+.Html5 and Css3
+.Python
+.Bootdstrap 3
+.Django - The web framework used
+.JQUERY
