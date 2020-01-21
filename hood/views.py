@@ -156,4 +156,4 @@ def add_post(request):
             return redirect('home')
     else:
         form = PostsForm()
-    return render(request, 'post_form.html', {'form': form,'post':post})
+    return render(request, 'main/post_form.html', {'form': form,'post':post})
