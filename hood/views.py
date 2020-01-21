@@ -78,3 +78,68 @@ def add_neighbourhood(request):
 
 
 
+@login_required
+def add_business(request):
+    current_user = request.user
+    post = Posts.objects.all()
+    if request.method == 'POST':
+        form = bForm(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            
+            post.user_posted = request.user
+            post.save()
+            return redirect('home')
+    else:
+        form = PostsForm()
+   
+
+    return render(request,'main/businessform.html',{'post':post})
+
+
+@login_required
+def business(request):
+  post = Posts.objects.all()
+  return render(request,'main/business.html',{'post':post})
+
+
+@login_required
+def add_post(request):
+  post = Posts.objects.all()
+  return render(request,"main/post_form.html",{'post':post})
+
+@login_required
+def join_neighbourhood(request,hood_id):
+    hood= get_object_or_404(Neighbourhood,id=hood_id)
+    hood.occupants = hood.occupants + 1
+    hood.save()
+  
+
+    user = request.user
+    profile = get_object_or_404(Profile,name=user)
+
+    profile.neighbourhood = hood
+    profile.save()
+    return render(request,'main/index.html', {"profile":profile,'hood':hood})
+
+def s_neighbourhood(request,hood_id):
+  post = Posts.objects.all()
+  hood_details = get_object_or_404(Neighbourhood, id=hood_id)
+  return render (request,'main/detailhood.html',{"hood_details":hood_details, 'post':post})
+
+@login_required
+def leave_neighbourhood(request,hood_id):
+
+    hood= get_object_or_404(Neighbourhood,id=hood_id)
+    hood.occupants = hood.occupants - 1
+    hood.save()
+  
+
+    user = request.user
+    profile = get_object_or_404(Profile,name=user)
+
+    profile.neighbourhood = None
+    profile.save()
+
+    return redirect('home')
+
